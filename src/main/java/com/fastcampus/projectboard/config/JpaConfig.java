@@ -16,4 +16,3 @@ public class JpaConfig {
         return () -> Optional.of("yessm"); // TODO:: 스프링 시큐리티로 인증 기능을 붙리게 될 때, 수정하자.
     }
 }
-
