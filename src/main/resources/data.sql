@@ -1,3 +1,10 @@
+-- 테스트 계정
+-- TODO: 테스트용이지만 비밀번호가 노출된 데이터 세팅. 개선하는 것이 좋을 지 고민해 보자.
+insert into user_account (user_id, user_password, nickname, email, memo, created_at, created_by, modified_at, modified_by) values
+    ('yessm621', 'asdf1234', 'yessm621', 'yessm621@mail.com', 'I am yessm.', now(), 'yessm621', now(), 'yessm621');
+
+
+-- 게시글
 insert into article (title, content, hashtag, created_at, created_by, modified_at, modified_by) values ('Mauris lacinia sapien quis libero.', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', null, '2023-04-23 05:01:55', 'Shaw', '2023-04-24 05:14:28', 'Kristien');
 insert into article (title, content, hashtag, created_at, created_by, modified_at, modified_by) values ('Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue.', 'In congue. Etiam justo. Etiam pretium iaculis justo.', '#Purple', '2022-10-03 04:47:33', 'Jeri', '2023-01-29 00:50:28', 'Emile');
 insert into article (title, content, hashtag, created_at, created_by, modified_at, modified_by) values ('Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo.', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', '#Purple', '2022-12-17 12:39:10', 'Brigitte', '2022-12-10 12:09:01', 'Lelia');
@@ -100,6 +107,7 @@ insert into article (title, content, hashtag, created_at, created_by, modified_a
 insert into article (title, content, hashtag, created_at, created_by, modified_at, modified_by) values ('Maecenas tincidunt lacus at velit.', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', null, '2023-01-18 05:15:12', 'Antonie', '2022-10-09 00:26:31', 'Kendrick');
 
 
+-- 게시글 댓글
 insert into article_comment (article_id, content, created_at, created_by, modified_at, modified_by) values (43, 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', '2023-03-05 11:14:24', 'Althea', '2023-01-24 12:21:34', 'Paulo');
 insert into article_comment (article_id, content, created_at, created_by, modified_at, modified_by) values (30, 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', '2022-11-10 10:30:20', 'Richie', '2022-12-14 04:45:02', 'Sergei');
 insert into article_comment (article_id, content, created_at, created_by, modified_at, modified_by) values (23, 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', '2022-12-15 18:30:48', 'Othelia', '2022-12-16 20:01:42', 'Kermy');
