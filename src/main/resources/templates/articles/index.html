@@ -59,28 +59,28 @@
       <th class="col-6">
         <a th:href="@{/articles(
            page=${articles.getNumber()},
-           sort='title'+(*{sort.getOrderFor('title')} != null ? (*{sort.getOrderFor('title').direction.name} != 'Desc' ? ',desc': '') : ''),
+           sort='title'+(*{sort.getOrderFor('title')} != null ? (*{sort.getOrderFor('title').direction.name} != 'DESC' ? ',desc': '') : ''),
            searchType=${param.searchType}, searchValue=${param.searchValue})}"
            th:text="'제목'">제목</a>
       </th>
       <th class="col-2">
         <a th:href="@{/articles(
            page=${articles.getNumber()},
-           sort='hashtag'+(*{sort.getOrderFor('hashtag')} != null ? (*{sort.getOrderFor('hashtag').direction.name} != 'Desc' ? ',desc': '') : ''),
+           sort='hashtag'+(*{sort.getOrderFor('hashtag')} != null ? (*{sort.getOrderFor('hashtag').direction.name} != 'DESC' ? ',desc': '') : ''),
            searchType=${param.searchType}, searchValue=${param.searchValue})}"
            th:text="'해시태그'">해시태그</a>
       </th>
       <th class="col">
         <a th:href="@{/articles(
            page=${articles.getNumber()},
-           sort='userAccount.userId'+(*{sort.getOrderFor('userAccount.userId')} != null ? (*{sort.getOrderFor('userAccount.userId').direction.name} != 'Desc' ? ',desc': '') : ''),
+           sort='userAccount.userId'+(*{sort.getOrderFor('userAccount.userId')} != null ? (*{sort.getOrderFor('userAccount.userId').direction.name} != 'DESC' ? ',desc': '') : ''),
            searchType=${param.searchType}, searchValue=${param.searchValue})}"
            th:text="'작성자'">작성자</a>
       </th>
       <th class="col">
         <a th:href="@{/articles(
            page=${articles.getNumber()},
-           sort='createdAt'+(*{sort.getOrderFor('createdAt')} != null ? (*{sort.getOrderFor('createdAt').direction.name} != 'Desc' ? ',desc': '') : ''),
+           sort='createdAt'+(*{sort.getOrderFor('createdAt')} != null ? (*{sort.getOrderFor('createdAt').direction.name} != 'DESC' ? ',desc': '') : ''),
            searchType=${param.searchType}, searchValue=${param.searchValue})}"
            th:text="'작성일'">작성일</a>
       </th>
