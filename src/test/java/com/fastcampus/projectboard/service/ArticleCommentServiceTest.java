@@ -60,7 +60,7 @@ class ArticleCommentServiceTest {
         // Given
         ArticleCommentDto dto = createArticleCommentDto("댓글");
         given(articleRepository.getReferenceById(dto.articleId())).willReturn(createArticle());
-        given(userAccountRepository.getReferenceById(dto.userAccountDto().id())).willReturn(createUserAccount());
+        given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(createUserAccount());
         given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(null);
 
         // When
@@ -68,7 +68,7 @@ class ArticleCommentServiceTest {
 
         // Then
         then(articleRepository).should().getReferenceById(dto.articleId());
-        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().id());
+        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().userId());
         then(articleCommentRepository).should().save(any(ArticleComment.class));
     }
 
@@ -152,7 +152,6 @@ class ArticleCommentServiceTest {
 
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
-                1L,
                 "yessm621",
                 "password",
                 "yessm621@mail.com",

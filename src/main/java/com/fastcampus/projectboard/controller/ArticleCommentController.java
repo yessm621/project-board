@@ -21,7 +21,7 @@ public class ArticleCommentController {
         System.out.println("articleCommentRequest = " + articleCommentRequest);
         // TODO: 인증 정보를 넣어줘야 한다.
         articleCommentService.saveArticleComment(articleCommentRequest.toDto(UserAccountDto.of(
-                1L, "yessm621", "password", "yessm621@mail.com", "yessm621", "This is memo", null, null, null, null
+                "yessm621", "password", "yessm621@mail.com", "yessm621", "This is memo", null, null, null, null
         )));
 
         return "redirect:/articles/" + articleCommentRequest.articleId();
