@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
@@ -33,7 +33,7 @@
     </article>
   </div>
 
-  <div class="row g-5" id="article-buttons">
+  <div class="row g-5" id="article-buttons" th:if="${#authorization.expression('isAuthenticated()')} and ${article.userId()} == ${#authentication.name}">
     <form id="delete-article-form" th:action="'/articles/' + ${article.id} + '/delete'" th:method="post">
       <div class="pb-5 d-grid gap-2 d-md-block">
         <a class="btn btn-success me-md-2" role="button" id="update-article"
@@ -74,8 +74,11 @@
                   댓글
                 </p>
               </div>
-              <div class="col-2 mb-3">
-                <button type="submit" class="btn btn-outline-danger" id="delete-comment-button">삭제</button>
+              <div class="col-2 mb-3 align-self-center">
+                <button type="submit" class="btn btn-outline-danger" id="delete-comment-button"
+                        th:if="${#authorization.expression('isAuthenticated()')} and ${articleComment.userId()} == ${#authentication.name}">
+                  삭제
+                </button>
               </div>
             </div>
           </form>

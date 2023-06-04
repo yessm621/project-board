@@ -193,14 +193,14 @@ class ArticleServiceTest {
     void givenArticleInfo_whenSavingArticle_thenSavesArticle() {
         // Given
         ArticleDto dto = createArticleDto();
-        given(userAccountRepository.getReferenceById(dto.userAccountDto().id())).willReturn(createUserAccount());
+        given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(createUserAccount());
         given(articleRepository.save(any(Article.class))).willReturn(createArticle());
 
         // When
         sut.saveArticle(dto);
 
         // Then
-        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().id());
+        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().userId());
         then(articleRepository).should().save(any(Article.class));
     }
 
@@ -211,6 +211,8 @@ class ArticleServiceTest {
         Article article = createArticle();
         ArticleDto dto = createArticleDto("새 타이틀", "새 내용", "#springboot");
         given(articleRepository.getReferenceById(dto.id())).willReturn(article);
+        given(userAccountRepository.getReferenceById(dto.userAccountDto().userId()))
+                .willReturn(dto.userAccountDto().toEntity());
 
         // When
         sut.updateArticle(dto.id(), dto);
@@ -221,6 +223,7 @@ class ArticleServiceTest {
                 .hasFieldOrPropertyWithValue("content", dto.content())
                 .hasFieldOrPropertyWithValue("hashtag", dto.hashtag());
         then(articleRepository).should().getReferenceById(dto.id());
+        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().userId());
     }
 
     @DisplayName("없는 게시글의 수정 정보를 입력하면, 경고 로그를 찍고 아무 것도 하지 않는다.")
@@ -242,13 +245,14 @@ class ArticleServiceTest {
     void givenArticleId_whenDeletingArticle_thenDeletesArticle() {
         // Given
         Long articleId = 1L;
-        willDoNothing().given(articleRepository).deleteById(articleId);
+        String userId = "yessm";
+        willDoNothing().given(articleRepository).deleteByIdAndUserAccount_UserId(articleId, userId);
 
         // When
-        sut.deleteArticle(1L);
+        sut.deleteArticle(1L, userId);
 
         // Then
-        then(articleRepository).should().deleteById(articleId);
+        then(articleRepository).should().deleteByIdAndUserAccount_UserId(articleId, userId);
     }
 
     private UserAccount createUserAccount() {
@@ -291,7 +295,6 @@ class ArticleServiceTest {
 
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
-                1L,
                 "yessm621",
                 "password",
                 "yessm621@mail.com",

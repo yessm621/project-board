@@ -60,7 +60,7 @@ class ArticleCommentServiceTest {
         // Given
         ArticleCommentDto dto = createArticleCommentDto("댓글");
         given(articleRepository.getReferenceById(dto.articleId())).willReturn(createArticle());
-        given(userAccountRepository.getReferenceById(dto.userAccountDto().id())).willReturn(createUserAccount());
+        given(userAccountRepository.getReferenceById(dto.userAccountDto().userId())).willReturn(createUserAccount());
         given(articleCommentRepository.save(any(ArticleComment.class))).willReturn(null);
 
         // When
@@ -68,7 +68,7 @@ class ArticleCommentServiceTest {
 
         // Then
         then(articleRepository).should().getReferenceById(dto.articleId());
-        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().id());
+        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().userId());
         then(articleCommentRepository).should().save(any(ArticleComment.class));
     }
 
@@ -97,6 +97,8 @@ class ArticleCommentServiceTest {
         ArticleComment articleComment = createArticleComment(oldContent);
         ArticleCommentDto dto = createArticleCommentDto(updatedContent);
         given(articleCommentRepository.getReferenceById(dto.id())).willReturn(articleComment);
+        given(userAccountRepository.getReferenceById(dto.userAccountDto().userId()))
+                .willReturn(dto.userAccountDto().toEntity());
 
         // When
         sut.updateArticleComment(dto);
@@ -106,6 +108,7 @@ class ArticleCommentServiceTest {
                 .isNotEqualTo(oldContent)
                 .isEqualTo(updatedContent);
         then(articleCommentRepository).should().getReferenceById(dto.id());
+        then(userAccountRepository).should().getReferenceById(dto.userAccountDto().userId());
     }
 
     @DisplayName("없는 댓글 정보를 수정하려고 하면, 경고 로그를 찍고 아무 것도 안 한다.")
@@ -127,13 +130,14 @@ class ArticleCommentServiceTest {
     void givenArticleCommentId_whenDeletingArticleComment_thenDeletesArticleComment() {
         // Given
         Long articleCommentId = 1L;
-        willDoNothing().given(articleCommentRepository).deleteById(articleCommentId);
+        String userId = "yessm";
+        willDoNothing().given(articleCommentRepository).deleteByIdAndUserAccount_UserId(articleCommentId, userId);
 
         // When
-        sut.deleteArticleComment(articleCommentId);
+        sut.deleteArticleComment(articleCommentId, userId);
 
         // Then
-        then(articleCommentRepository).should().deleteById(articleCommentId);
+        then(articleCommentRepository).should().deleteByIdAndUserAccount_UserId(articleCommentId, userId);
     }
 
 
@@ -152,7 +156,6 @@ class ArticleCommentServiceTest {
 
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
-                1L,
                 "yessm621",
                 "password",
                 "yessm621@mail.com",

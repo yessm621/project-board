@@ -26,6 +26,7 @@ public class Article extends AuditingFields {
 
     @Setter
     @ManyToOne(optional = false)
+    @JoinColumn(name = "userId")
     private UserAccount userAccount;
 
     // 클래스 레벨에서 @Setter 를 작성하는 것이 아니라 변수에 개별로 작성
