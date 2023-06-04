@@ -47,7 +47,7 @@ public class ArticleCommentService {
         try {
             ArticleComment articleComment = articleCommentRepository.getReferenceById(dto.id());
             UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().userId());
-            if (articleComment.getUserAccount().equals(userAccount)) {
+            if (articleComment.getUserAccount().getUserId().equals(userAccount.getUserId())) {
                 if (dto.content() != null) {
                     articleComment.setContent(dto.content());
                 }
